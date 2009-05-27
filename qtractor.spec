@@ -11,7 +11,7 @@
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
 Version:       0.4.1
-Release:       3%{?dist}.1
+Release:       4%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
 URL:           http://qtractor.sourceforge.net/
