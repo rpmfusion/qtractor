@@ -1,7 +1,17 @@
+%ifarch %{ix86}
+%global without_sse %{!?_without_sse:0}%{?_without_sse:1}
+%endif
+%ifarch ia64 x86_64
+%global without_sse 0
+%endif
+%ifnarch %{ix86} ia64 x86_64
+%global without_sse 1
+%endif
+
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
 Version:       0.4.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
 URL:           http://qtractor.sourceforge.net/
@@ -43,7 +53,11 @@ sed -i 's|@install|install -p|' Makefile.in
 
 %build
 export PATH=${PATH}:%{_libdir}/qt4/bin
-%configure 
+%configure \
+%if %{without_sse}
+   --enable-sse=no
+%endif
+
 make %{?_smp_mflags}
 
 %install
@@ -90,6 +104,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
 %changelog
+* Wed May 27 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.1-4
+- Explicitly disable SSE optimizations on non-"%%{ix86} ia64 x86_64" architectures
+
 * Fri May 22 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.1-3
 - preserve timestamps
 
