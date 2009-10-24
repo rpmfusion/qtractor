@@ -10,7 +10,7 @@
 
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
-Version:       0.4.2
+Version:       0.4.3
 Release:       1%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
@@ -104,6 +104,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
 %changelog
+* Fri Oct 23 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.3-1
+- updated to 0.4.3.
+
 * Fri Jun 05 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.2-1
 - updated to 0.4.2.
 
