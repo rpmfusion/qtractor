@@ -10,7 +10,7 @@
 
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
-Version:       0.4.3
+Version:       0.4.5
 Release:       1%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
@@ -31,6 +31,7 @@ BuildRequires: libsndfile-devel
 BuildRequires: libvorbis-devel
 BuildRequires: qt-devel
 BuildRequires: rubberband-devel
+BuildRequires: slv2-devel
 
 Requires:      hicolor-icon-theme
 
@@ -50,6 +51,9 @@ sed -i 's|@ac_prefix@.*|%{name}|' %{name}.desktop.in
 
 # Preserve timestamps:
 sed -i 's|@install|install -p|' Makefile.in
+
+# Fix weird permissions
+chmod -x src/*.{cpp,h}
 
 %build
 export PATH=${PATH}:%{_libdir}/qt4/bin
@@ -104,6 +108,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
 %changelog
+* Sat Jan 30 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.5-1
+- updated to 0.4.5.
+
 * Fri Oct 23 2009 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.3-1
 - updated to 0.4.3.
 
