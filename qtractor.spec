@@ -10,13 +10,12 @@
 
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
-Version:       0.4.5
+Version:       0.4.6
 Release:       1%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
 URL:           http://qtractor.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source1:       http://downloads.sourceforge.net/%{name}/%{name}-0.3.0-user-manual.odt
 BuildRoot:     %{_tmppath}/%{name}-%{version}-%{release}-root
 
 BuildRequires: alsa-lib-devel
@@ -45,15 +44,6 @@ dedicated to the personal home-studio.
 
 %prep
 %setup -q
-cp -a %{SOURCE1} .
-# Remove absolute paths from the desktop file:
-sed -i 's|@ac_prefix@.*|%{name}|' %{name}.desktop.in
-
-# Preserve timestamps:
-sed -i 's|@install|install -p|' Makefile.in
-
-# Fix weird permissions
-chmod -x src/*.{cpp,h}
 
 %build
 export PATH=${PATH}:%{_libdir}/qt4/bin
@@ -68,21 +58,8 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
-# move icon to freedesktop location
-mkdir -p %{buildroot}%{_datadir}/icons/hicolor/32x32/apps
-mv %{buildroot}%{_datadir}/pixmaps/%{name}.png \
-   %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
-
-# install the desktop entry
-RM_CAT="JACK ALSA MIDI"
-ADD_CAT="X-Alsa X-Recorders X-Multitrack X-Jack X-MIDI Midi Sequencer"
-
-mkdir -p %{buildroot}%{_datadir}/applications
-desktop-file-install \
-  --dir %{buildroot}%{_datadir}/applications    \
-  `for c in ${RM_CAT} ; do echo "--remove-category $c " ; done` \
-  `for c in ${ADD_CAT} ; do echo "--add-category $c " ; done` \
-  %{name}.desktop  
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
 rm -rf %{buildroot}
@@ -102,12 +79,20 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog COPYING README TODO *.odt
+%doc AUTHORS ChangeLog COPYING README TODO
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
 %changelog
+* Sun May 23 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.6-1
+- Update to 0.4.6
+- Drop upstreamed .desktop file modifications
+- Drop old documentation
+
+* Sun May 16 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.6-0.1.1568svn1565
+- Update to 0.4.6 rc (svn1565)
+
 * Sat Jan 30 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.5-1
 - updated to 0.4.5.
 
