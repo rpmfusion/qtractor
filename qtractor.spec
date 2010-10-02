@@ -10,7 +10,7 @@
 
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
-Version:       0.4.6
+Version:       0.4.7
 Release:       1%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
@@ -85,6 +85,18 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
 %changelog
+* Sat Oct 02 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.7-1
+- Update to 0.4.7
+
+* Sat Aug 21 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.4.6-4
+- rebuilt
+
+* Sun Aug 08 2010 Orcan Ogetbil <oget[DOT]fedora[AT]gmail[DOT]com> - 0.4.6-3
+- Rebuild against new liblo-0.26 on F-14 again
+
+* Tue Jul 20 2010 Orcan Ogetbil <oget[DOT]fedora[AT]gmail[DOT]com> - 0.4.6-2
+- Rebuild against new liblo-0.26 on F-14
+
 * Sun May 23 2010 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.4.6-1
 - Update to 0.4.6
 - Drop upstreamed .desktop file modifications
