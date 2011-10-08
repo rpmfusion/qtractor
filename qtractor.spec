@@ -10,7 +10,7 @@
 
 Summary:       Audio/MIDI multi-track sequencer
 Name:          qtractor
-Version:       0.5.0
+Version:       0.5.1
 Release:       1%{?dist}
 License:       GPLv2+
 Group:         Applications/Multimedia
@@ -61,6 +61,8 @@ make %{?_smp_mflags}
 rm -rf %{buildroot}
 make install DESTDIR=%{buildroot}
 
+%find_lang %{name} --with-qt
+
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
@@ -80,14 +82,18 @@ fi
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING README TODO
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/32x32/apps/%{name}.png
 
+
 %changelog
+* Sat Oct 08 2011 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.5.1-1
+- Update to 0.5.1
+
 * Sat Jul 30 2011 Orcan Ogetbil <oget [DOT] fedora [AT] gmail [DOT] com> - 0.5.0-1
 - Update to 0.5.0
 
